@@ -25,4 +25,20 @@ public class PrincesaService {
     public void deletarPrincesaPorNome(String nome){
         repository.deleteByNome(nome);
     }
+
+    public void atualizarPrincesaPorId(Integer id, Princesa princesa){
+        Princesa princesaEntity = repository.findById(id).orElseThrow(() ->
+                new RuntimeException("Princesa não encontrada"));
+        Princesa princesaAtualizada = Princesa.builder()
+                .nome(princesa.getNome() != null ? princesa.getNome():
+                        princesaEntity.getNome())
+                .nome_filme(princesa.getNome_filme() != null ? princesa.getNome_filme() :
+                        princesaEntity.getNome_filme())
+                .cor_vestido(princesa.getCor_vestido() != null ? princesa.getCor_vestido():
+                        princesaEntity.getCor_vestido())
+                .ano_filme(princesa.getAno_filme() != null ? princesa.getAno_filme():
+                        princesaEntity.getAno_filme())
+                .id(princesaEntity.getId())
+                .build();
+    }
 }
