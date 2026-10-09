@@ -31,7 +31,8 @@ public class PrincesaController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> atualizarPrincesaPorId (@RequestParam Integer id, Princesa princesa){
+    public ResponseEntity<Void> atualizarPrincesaPorId (@RequestParam Integer id,
+                                                        @RequestBody Princesa princesa){
         princesaService.atualizarPrincesaPorId(id, princesa);
         return ResponseEntity.ok().build();
     }
