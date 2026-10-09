@@ -40,5 +40,7 @@ public class PrincesaService {
                         princesaEntity.getAno_filme())
                 .id(princesaEntity.getId())
                 .build();
+
+        repository.saveAndFlush(princesaAtualizada);
     }
 }
