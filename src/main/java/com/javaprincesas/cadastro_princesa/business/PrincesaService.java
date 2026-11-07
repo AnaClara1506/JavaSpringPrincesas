@@ -4,6 +4,8 @@ import com.javaprincesas.cadastro_princesa.infrastructure.entitys.Princesa;
 import com.javaprincesas.cadastro_princesa.infrastructure.repository.PrincesaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PrincesaService {
     private final PrincesaRepository repository;
@@ -20,6 +22,10 @@ public class PrincesaService {
         return repository.findByNome(nome).orElseThrow(
                 () -> new RuntimeException("Nome da Princesa não encontrado")
         );
+    }
+
+    public List<Princesa> listarTodas(){
+        return repository.findAll();
     }
 
     public void deletarPrincesaPorNome(String nome){

@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/princesa")
 @RequiredArgsConstructor
@@ -22,6 +25,11 @@ public class PrincesaController {
     @GetMapping
     public ResponseEntity<Princesa> buscarPrincesaPorNome(@RequestParam String nome){
         return ResponseEntity.ok(princesaService.buscarPrincesaPorNome(nome));
+    }
+
+    @GetMapping("/todas")
+    public ResponseEntity<List<Princesa>> listarTodasPrincesas(){
+        return ResponseEntity.ok(princesaService.listarTodas());
     }
 
     @DeleteMapping

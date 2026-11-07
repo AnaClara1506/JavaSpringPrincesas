@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reino Encantado • Cadastro de Princesas Disney</title>
+  
+  <!-- Fontes do Google: Cinzel Decorative, Playfair Display e Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Fundo Mágico com Partículas de Brilho -->
+  <div class="sparkles-container" id="sparklesContainer" aria-hidden="true"></div>
+
+  <!-- Cabeçalho Real -->
+  <header class="royal-header">
+    <div class="header-content">
+      <div class="royal-crown-badge">
+        <span class="crown-icon">👑</span>
+      </div>
+      <h1 class="royal-title">Reino das Princesas Disney</h1>
+      <p class="royal-subtitle">Sistema Encantado de Gestão e Cadastro de Princesas</p>
+      
+      <div class="header-meta">
+        <div class="connection-status" id="connectionStatus">
+          <span class="status-dot"></span>
+          <span class="status-text">Verificando Reino...</span>
+        </div>
+        <button class="api-config-btn" id="apiConfigBtn" title="Configurar endereço do servidor">
+          ⚙️ Conexão: <span id="currentApiDisplay">localhost:8080</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Container Principal -->
+  <main class="main-container">
+    
+    <!-- Painel de Cadastro e Ações (Escriba Real) -->
+    <section class="royal-card form-section">
+      <div class="card-header">
+        <div class="header-icon-title">
+          <span class="section-icon">🪄</span>
+          <h2>Formulário Real</h2>
+        </div>
+        <div class="mode-badge" id="formModeBadge">
+          <span class="badge-icon">✨</span>
+          <span id="badgeText">Novo Cadastro</span>
+        </div>
+      </div>
+
+      <p class="section-desc">Digite os dados da princesa para registrá-la, atualizá-la ou consultá-la no banco de dados real.</p>
+
+      <form id="princessForm" class="princess-form" onsubmit="return false;">
+        
+        <!-- Campo ID (Visível ao selecionar uma princesa para atualizar) -->
+        <div class="input-group id-group" id="idFieldContainer" style="display: none;">
+          <label for="princessId">
+            <span class="input-icon">🏷️</span> ID no Banco de Dados
+          </label>
+          <div class="input-wrapper readonly-wrapper">
+            <input type="number" id="princessId" name="id" readonly placeholder="Gerado automaticamente">
+            <span class="id-helper-pill">Registro Selecionado</span>
+          </div>
+        </div>
+
+        <!-- Campo Nome da Princesa -->
+        <div class="input-group">
+          <label for="princessNome">
+            <span class="input-icon">👑</span> Nome da Princesa <span class="required">*</span>
+          </label>
+          <div class="input-wrapper">
+            <input type="text" id="princessNome" name="nome" placeholder="Ex: Cinderela, Ariel, Bela, Aurora..." required autocomplete="off">
+            <button type="button" class="field-quick-btn" id="quickSearchBtn" title="Buscar princesa por este nome">
+              🔍 Buscar
+            </button>
+          </div>
+        </div>
+
+        <!-- Campo Filme -->
+        <div class="input-group">
+          <label for="princessFilme">
+            <span class="input-icon">🎬</span> Nome do Filme <span class="required">*</span>
+          </label>
+          <div class="input-wrapper">
+            <input type="text" id="princessFilme" name="nome_filme" placeholder="Ex: A Bela e a Fera, Enrolados..." required autocomplete="off">
+          </div>
+        </div>
+
+        <!-- Campo Cor do Vestido -->
+        <div class="input-group">
+          <label for="princessCorVestido">
+            <span class="input-icon">👗</span> Cor do Vestido <span class="required">*</span>
+          </label>
+          <div class="input-wrapper color-wrapper">
+            <span class="color-preview" id="colorPreview" style="background-color: #ff758c;"></span>
+            <input type="text" id="princessCorVestido" name="cor_vestido" placeholder="Ex: Azul Celeste, Rosa Real, Dourado..." required autocomplete="off">
+          </div>
+          
+          <!-- Paleta Rápida de Cores Clássicas Disney -->
+          <div class="color-presets" aria-label="Sugestões de cores de princesas">
+            <span class="preset-label">Cores Mágicas:</span>
+            <button type="button" class="preset-btn" data-color="#5dade2" data-name="Azul Baile" title="Azul (Cinderela)">💙 Cinderela</button>
+            <button type="button" class="preset-btn" data-color="#f5b041" data-name="Amarelo Ouro" title="Amarelo (Bela)">💛 Bela</button>
+            <button type="button" class="preset-btn" data-color="#ec407a" data-name="Rosa Encantado" title="Rosa (Aurora)">💖 Aurora</button>
+            <button type="button" class="preset-btn" data-color="#48c9b0" data-name="Verde Ninfeia" title="Verde (Tiana)">💚 Tiana</button>
+            <button type="button" class="preset-btn" data-color="#ab47bc" data-name="Lilás Solar" title="Lilás (Rapunzel)">💜 Rapunzel</button>
+            <button type="button" class="preset-btn" data-color="#00bcd4" data-name="Azul Turquesa" title="Turquesa (Jasmine)">💎 Jasmine</button>
+          </div>
+        </div>
+
+        <!-- Campo Ano do Filme -->
+        <div class="input-group">
+          <label for="princessAnoFilme">
+            <span class="input-icon">📅</span> Ano de Lançamento <span class="required">*</span>
+          </label>
+          <div class="input-wrapper">
+            <input type="number" id="princessAnoFilme" name="ano_filme" placeholder="Ex: 1950, 1989, 1991..." min="1900" max="2100" required>
+          </div>
+        </div>
+
+        <!-- Barra de Ações Principais (Botões solicitados) -->
+        <div class="form-actions">
+          <!-- Botão Cadastrar (POST) -->
+          <button type="button" id="btnCadastrar" class="btn btn-primary" title="Cadastrar nova princesa no banco de dados (POST)">
+            <span class="btn-icon">💖</span> Cadastrar Princesa
+          </button>
+
+          <!-- Botão Atualizar (PUT) -->
+          <button type="button" id="btnAtualizar" class="btn btn-warning" title="Atualizar dados da princesa pelo ID (PUT)">
+            <span class="btn-icon">👑</span> Atualizar Princesa
+          </button>
+
+          <!-- Botão Deletar (DELETE) -->
+          <button type="button" id="btnDeletar" class="btn btn-danger" title="Deletar princesa pelo nome (DELETE)">
+            <span class="btn-icon">🗑️</span> Deletar Princesa
+          </button>
+
+          <!-- Botão Limpar Campos -->
+          <button type="button" id="btnLimpar" class="btn btn-secondary" title="Limpar todos os campos digitados">
+            <span class="btn-icon">🧹</span> Limpar Campos
+          </button>
+        </div>
+
+        <!-- Guia de Verbos HTTP Implementados -->
+        <div class="verbs-badge-row">
+          <span class="verb-chip verb-post" title="POST /princesa">POST</span>
+          <span class="verb-chip verb-get" title="GET /princesa?nome=...">GET</span>
+          <span class="verb-chip verb-put" title="PUT /princesa?id=...">PUT</span>
+          <span class="verb-chip verb-delete" title="DELETE /princesa?nome=...">DELETE</span>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- Painel de Exibição (Galeria Real de Princesas) -->
+    <section class="royal-card gallery-section">
+      <div class="card-header">
+        <div class="header-icon-title">
+          <span class="section-icon">🪞</span>
+          <h2>Galeria do Reino</h2>
+        </div>
+        <div class="gallery-counter">
+          <span class="counter-badge" id="princessCount">0 princesa(s)</span>
+        </div>
+      </div>
+
+      <p class="section-desc">As princesas cadastradas e consultadas aparecem aqui em tempo real conforme você envia os dados.</p>
+
+      <!-- Barra de Pesquisa e Ferramentas da Galeria -->
+      <div class="gallery-toolbar">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchNomeInput" placeholder="Buscar princesa por nome no banco..." autocomplete="off">
+          <button type="button" id="btnBuscar" class="btn-search" title="Executar busca GET no backend">
+            Buscar (GET)
+          </button>
+        </div>
+        
+        <div class="toolbar-actions">
+          <button type="button" id="btnSincronizar" class="btn-tool" title="Recarregar do banco de dados">
+            🔄 Sincronizar
+          </button>
+          <button type="button" id="btnCarregarExemplos" class="btn-tool btn-tool-accent" title="Preencher com uma princesa famosa">
+            ✨ Exemplo Rápido
+          </button>
+        </div>
+      </div>
+
+      <!-- Área Dinâmica dos Cards -->
+      <div class="princess-cards-grid" id="princessCardsGrid">
+        <!-- Cards gerados dinamicamente pelo JavaScript -->
+      </div>
+
+      <!-- Estado Vazio Encantado -->
+      <div class="empty-state" id="emptyState">
+        <div class="empty-illustration">🏰✨👠</div>
+        <h3>O Salão do Trono está Vazio!</h3>
+        <p>Preencha os campos ao lado e clique em <strong>Cadastrar Princesa</strong> para registrar sua primeira princesa ou faça uma busca por nome.</p>
+        <button type="button" id="btnCriarPrimeira" class="btn btn-outline-magic">
+          ✨ Preencher Princesa de Exemplo
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Rodapé Encantado -->
+  <footer class="royal-footer">
+    <div class="footer-content">
+      <p>🌸 CRUD de Cadastro de Princesas Disney • Desenvolvido com carinho e magia em JavaScript 🌸</p>
+      <p class="footer-sub">Endpoints integrados: <code>POST /princesa</code> • <code>GET /princesa?nome=...</code> • <code>PUT /princesa?id=...</code> • <code>DELETE /princesa?nome=...</code></p>
+    </div>
+  </footer>
+
+  <!-- Modal de Configuração do Endpoint do Backend -->
+  <div class="royal-modal-backdrop" id="configModal" style="display: none;">
+    <div class="royal-modal">
+      <div class="modal-header">
+        <h3>⚙️ Configuração da Conexão</h3>
+        <button type="button" class="modal-close" id="closeConfigModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Defina o endereço base da API Spring Boot do backend:</p>
+        <div class="input-group">
+          <label for="apiUrlInput">URL da API Princesa:</label>
+          <input type="text" id="apiUrlInput" value="http://localhost:8080/princesa" placeholder="http://localhost:8080/princesa">
+        </div>
+        <p class="modal-hint">Padronizado para o servidor Spring Boot local na porta 8080.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnResetApiUrl">Restaurar Padrão</button>
+        <button type="button" class="btn btn-primary" id="btnSalvarApiUrl">Salvar e Conectar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Container de Toasts de Notificação Mágica -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Script da Aplicação -->
+  <script src="app.js"></script>
+</body>
+</html>
